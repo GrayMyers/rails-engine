@@ -5,7 +5,7 @@ class Api::V1::SearchController < ApplicationController
   end
 
   def find_all_items
-    results = Item.find_all(params[:name])
+    results = Item.find_all(params[:name], params[:min_price], params[:max_price])
     render json: MerchantSerializer.new(results)
   end
 end
