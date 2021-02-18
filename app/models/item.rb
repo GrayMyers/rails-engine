@@ -1,10 +1,25 @@
 class Item < ApplicationRecord
   belongs_to :merchant
 
-  def find_all(search_term,min,max)
-    Item
-    .where("regexp_matches(name, ?)", "#{search}") if search_term
-    .where("price > #{min}") if min
-    .where("price < #{max}") if max
+  def self.find_all(search_term,min,max)
+    if !search_term and !min and !max
+      return []
+    end
+
+    result = Item.all
+
+    if search_term
+      result = result.where("name LIKE ?","%#{search_term}%")
+    end
+
+    if min
+      result = result.where("unit_price >= #{min}")
+    end
+
+    if max
+      result = result.where("unit_price <= #{max}")
+    end
+
+    result
   end
 end
