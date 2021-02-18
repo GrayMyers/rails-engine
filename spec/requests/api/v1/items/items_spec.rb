@@ -3,9 +3,11 @@ RSpec.describe 'Items', type: :request do
   describe 'fetching a single item' do
     it 'succeeds when there is something to fetch' do
       merchant = Merchant.create(name: "merchant 1")
-      item = merchant.items.create(name: "item to be found")
+      item = merchant.items.create(name: "item to be found", description: "the most useful thing")
       expected_attributes = {
-        name: item.name
+        name: item.name,
+        description: item.description,
+        merchant_id: merchant.id
       }
       # get "/api/v1/items/#{item.id}"
       get api_v1_item_path(item.id)
@@ -51,6 +53,35 @@ RSpec.describe 'Items', type: :request do
       # as an extension, you can make a custom error message, but a 404 with an empty "data" structure from the serializer is fine too
       json = JSON.parse(response.body, symbolize_names: true)
       expect(json).to eq({data: []})
+    end
+  end
+
+  describe " can create and delete items" do
+    it "returns the data of the newly created item upon successful creation" do
+      merchant = Merchant.create(name: "me")
+      i_name = "blah"
+      i_desc = "bleh"
+      expected_attributes = {
+        name: i_name,
+        description: i_desc,
+        merchant_id: merchant.id
+      }
+      post api_v1_items_path(name: i_name, description: i_desc, merchant_id: merchant.id)
+      json = JSON.parse(response.body, symbolize_names: true)
+
+      expect(response.status).to eq(201)
+      expected_attributes.each do |attribute, value|
+        expect(json[:data][:attributes][attribute]).to eq(value)
+      end
+    end
+    it "returns status 400 when invalid data is given" do
+      i_name = "blah"
+      i_desc = "bleh"
+      post api_v1_items_path()
+      json = JSON.parse(response.body, symbolize_names: true)
+
+      expect(response.status).to eq(400)
+      expect(json).to eq({error: "invalid data", status: 400})
     end
   end
 
