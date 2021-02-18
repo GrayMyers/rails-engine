@@ -29,6 +29,12 @@ describe Item, type: :model do
 
       twenty_first_item_by_name = Item.find_all("item 20",nil,nil)
       expect(twenty_first_item_by_name).to eq([@items[20]])
+
+      non_existant_item = Item.find_all("not an item",nil,nil)
+      expect(non_existant_item).to eq([])
+
+      invalid_params = Item.find_all(nil,nil,nil)
+      expect(invalid_params).to eq([])
     end
   end
 end
