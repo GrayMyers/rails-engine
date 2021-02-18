@@ -32,9 +32,6 @@ describe Item, type: :model do
 
       non_existant_item = Item.find_all("not an item",nil,nil)
       expect(non_existant_item).to eq([])
-
-      invalid_params = Item.find_all(nil,nil,nil)
-      expect(invalid_params).to eq([])
     end
   end
 end
