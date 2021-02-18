@@ -1,4 +1,5 @@
 require 'rails_helper'
+
 RSpec.describe 'Merchants', type: :request do
   describe 'fetching a single merchant' do
     it 'succeeds when there is something to fetch' do
@@ -49,6 +50,37 @@ RSpec.describe 'Merchants', type: :request do
       # as an extension, you can make a custom error message, but a 404 with an empty "data" structure from the serializer is fine too
       json = JSON.parse(response.body, symbolize_names: true)
       expect(json).to eq({data: []})
+    end
+  end
+
+  describe "incomplete search for one merchant" do
+    before :each do
+      @merchants =  (0..50).map{ |i| Merchant.create(name: "merchant #{i}") }
+    end
+
+    it 'succeeds when there is something to fetch' do
+      name = "merchant 39"
+      expected_attributes = {
+        name: name
+      }
+      # get "/api/v1/merchants/#{merchant.id}"
+      get api_v1_merchants_find_one_path(name: name)
+      expect(response.status).to eq(200)
+      json = JSON.parse(response.body, symbolize_names: true)
+      expect(json[:data][:id]).to eq(@merchants[39].id.to_s)
+      # expect that every attribute we want up above shows up in our output
+      expected_attributes.each do |attribute, value|
+        expect(json[:data][:attributes][attribute]).to eq(value)
+      end
+    end
+    it 'returns empty data if merchant does not exist' do
+      name = "merchant 9000"
+      # get "/api/v1/merchants/#{merchant.id}"
+      get api_v1_merchants_find_one_path(name: name)
+      expect(response.status).to eq(200)
+      json = JSON.parse(response.body, symbolize_names: true)
+      expect(json[:data]).to eq(nil)
+      # expect that every attribute we want up above shows up in our output
     end
   end
 end
