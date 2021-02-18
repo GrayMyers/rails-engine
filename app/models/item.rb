@@ -2,10 +2,6 @@ class Item < ApplicationRecord
   belongs_to :merchant
 
   def self.find_all(search_term,min,max)
-    if !search_term and !min and !max
-      return []
-    end
-
     result = Item.all
 
     if search_term
