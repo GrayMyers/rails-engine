@@ -22,11 +22,7 @@ class Api::V1::ItemsController < ApplicationController
 
   def destroy
     item = Item.find(params[:id])
-    if item.destroy
-      render json: {status: 204}.to_json, status: 204
-    else
-      render json: {:error => "invalid data", status: 400}.to_json, status: 400
-    end
+    render json: {status: 204}.to_json, status: 204
   end
 
   def update

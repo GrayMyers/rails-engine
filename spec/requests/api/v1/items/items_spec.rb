@@ -56,7 +56,7 @@ RSpec.describe 'Items', type: :request do
     end
   end
 
-  describe " can create and delete items" do
+  describe "creating an item" do
     it "returns the data of the newly created item upon successful creation" do
       merchant = Merchant.create(name: "me")
       i_name = "blah"
@@ -82,6 +82,22 @@ RSpec.describe 'Items', type: :request do
 
       expect(response.status).to eq(400)
       expect(json).to eq({error: "invalid data", status: 400})
+    end
+  end
+
+  describe "deleting an item" do
+    it "returns the data of the newly created item upon successful creation" do
+      merchant = Merchant.create(name: "me")
+      item = Item.create(name: "item", description: "desc", unit_price: 5, merchant: merchant)
+      delete api_v1_item_path(item.id)
+
+      expect(response.status).to eq(204)
+    end
+    it "returns status 400 when invalid data is given" do
+      delete api_v1_item_path(284384982394732)
+      json = JSON.parse(response.body, symbolize_names: true)
+
+      expect(response.status).to eq(404)
     end
   end
 
@@ -131,6 +147,19 @@ RSpec.describe 'Items', type: :request do
         expect(json[:data][:attributes][attribute]).to eq(value)
       end
     end
+    it "fails with 400 if invalid data is provided" do
+      merchant = Merchant.create(name: "merchant 1")
+      item = merchant.items.create(name: "item to be found", description: "the most useful thing")
+
+      patch api_v1_item_path(item.id, merchant_id: "modified id")
+      json = JSON.parse(response.body, symbolize_names: true)
+
+      expect(response.status).to eq(400)
+
+      expect(json).to have_key(:error)
+      expect(json[:error]).to eq('invalid data')
+    end
+
     it 'fails with 404 if item does not exist' do
       patch api_v1_item_path(999999999999999, description: "modified description")
       expect(response.status).to eq(404)
