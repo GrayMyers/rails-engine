@@ -3,6 +3,20 @@ require "rails_helper"
 describe Merchant, type: :model do
   describe "relations" do
     it {should have_many :items}
+    it {should have_many :invoices}
+  end
+
+  describe "instance methods" do
+    it "total_revenue" do
+      merchant = Merchant.create(name: "me")
+      merchant_2 = Merchant.create(name: "not me")
+
+      item = Item.create(name: "item sold", description: "item has been sold and will count towards revenue", unit_price: 10, merchant: merchant)
+      item_not_sold = Item.create(name: "item not sold", description: "nobody bought it because its so expensive, this won't count towards revenue!", unit_price: 100007807807807807807070, merchant: merchant)
+      not_my_item = Item.create(name: "item sold", description: "this got sold but isn't mine so it wont count towards revenue", unit_price: 10, merchant: merchant_2)
+
+      customer = Customer.create(first_name: "John", last_name: "Smith")
+    end
   end
 
   describe "class methods" do
