@@ -51,5 +51,4 @@ RSpec.describe 'Merchants', type: :request do
       expect(json).to eq({data: []})
     end
   end
-
 end

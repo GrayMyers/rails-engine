@@ -10,6 +10,17 @@ describe Merchant, type: :model do
       @merchants =  (0..50).map{ |i| Merchant.create(name: "merchant #{i}") }
     end
 
+    it "find_one" do
+      merchant_all = Merchant.find_one("merchant")
+      expect(@merchants).to include(merchant_all)
+
+      merchant_one = Merchant.find_one("merchant 30")
+      expect(merchant_one).to eq(@merchants[30])
+
+      merchant_none = Merchant.find_one("not a merchant")
+      expect(merchant_none).to eq(nil)
+    end
+
     it "all_within_range" do
       page1 = Merchant.all_within_range(0,0) #testing sad path default values
       expect(page1).to eq(Merchant.all_within_range(1,20))
