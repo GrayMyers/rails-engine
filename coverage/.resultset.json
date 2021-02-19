@@ -310,6 +310,7 @@
           1,
           1,
           1,
+          1,
           null,
           null
         ]
@@ -350,6 +351,21 @@
           1,
           5,
           null,
+          null,
+          1,
+          2,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ]
+      },
+      "/Users/graymyers/turing/3module/projects/rails-engine/app/models/transaction.rb": {
+        "lines": [
+          1,
+          1,
           null
         ]
       },
@@ -470,6 +486,6 @@
         ]
       }
     },
-    "timestamp": 1613692197
+    "timestamp": 1613693369
   }
 }
