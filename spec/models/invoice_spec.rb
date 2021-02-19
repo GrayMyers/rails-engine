@@ -32,10 +32,12 @@ describe Invoice, type: :model do
       InvoiceItem.create(item: not_my_item, invoice: not_my_invoice, quantity: 5, unit_price: 100)
       Transaction.create(invoice: not_my_invoice, result: "success")
 
+      early = "1922-1-1"
+      late = "2100-1-1"
       #returns total market revenue when not given a start or end date
-      expect(Invoice.total_revenue_within_range(nil,nil)).to eq(550) #all entries contains all entries.
-      expect(Invoice.total_revenue_within_range(Date.today,nil)).to eq(550) #all entries created today and later contains all entries.
-      expect(Invoice.total_revenue_within_range(nil,Date.today)).to eq(0)  #all entries created before today and later contains nothing.
+      expect(Invoice.total_revenue_within_range(early,late)).to eq(550)
+      expect(Invoice.total_revenue_within_range(Date.today,late)).to eq(550)
+      expect(Invoice.total_revenue_within_range(early,Date.today)).to eq(0)  
     end
 
     it "pending_revenue" do
@@ -51,17 +53,21 @@ describe Invoice, type: :model do
       my_invoice = Invoice.create(customer: customer, merchant: merchant, status: "shipped")
       InvoiceItem.create(item: item, invoice: my_invoice, quantity: 5, unit_price: 10)
       Transaction.create(invoice: my_invoice, result: "success")
-
-      my_not_shipped_invoice = Invoice.create(customer: customer, merchant: merchant, status: "packaged")
-      InvoiceItem.create(item: item_not_sold, invoice: my_not_shipped_invoice, quantity: 2, unit_price: 1000)
-      Transaction.create(invoice: my_not_shipped_invoice, result: "success")
-
+      my_not_shipped_invoices = []
+      4.times do |i|
+        my_not_shipped_invoices[i] = Invoice.create(customer: customer, merchant: merchant, status: "packaged")
+        InvoiceItem.create(item: item_not_sold, invoice: my_not_shipped_invoices[i], quantity: 2, unit_price: 1000)
+        Transaction.create(invoice: my_not_shipped_invoices[i], result: "success")
+      end
 
       not_my_invoice = Invoice.create(customer: customer, merchant: merchant_2, status: "shipped")
       InvoiceItem.create(item: not_my_item, invoice: not_my_invoice, quantity: 5, unit_price: 100)
       Transaction.create(invoice: not_my_invoice, result: "success")
 
-      expect(Invoice.pending_revenue).to eq(2000)
+      expect(Invoice.pending_orders).to eq(my_not_shipped_invoices)
+
+      expect(Invoice.pending_orders(3)).to eq(my_not_shipped_invoices[0..2])
+
     end
   end
 end

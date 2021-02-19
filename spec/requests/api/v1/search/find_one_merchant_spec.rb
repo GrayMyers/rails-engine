@@ -12,7 +12,7 @@ describe "Find one merchant search", type: :request do
         name: name
       }
       # get "/api/v1/merchants/#{merchant.id}"
-      get api_v1_merchants_find_one_path(name: name)
+      get api_v1_merchants_find_path(name: name)
       expect(response.status).to eq(200)
       json = JSON.parse(response.body, symbolize_names: true)
       expect(json[:data][:id]).to eq(@merchants[39].id.to_s)
@@ -24,7 +24,7 @@ describe "Find one merchant search", type: :request do
     it 'returns empty data if merchant does not exist' do
       name = "merchant 9000"
       # get "/api/v1/merchants/#{merchant.id}"
-      get api_v1_merchants_find_one_path(name: name)
+      get api_v1_merchants_find_path(name: name)
       expect(response.status).to eq(200)
       json = JSON.parse(response.body, symbolize_names: true)
       expect(json[:data]).to eq(nil)
