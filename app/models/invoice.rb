@@ -17,4 +17,11 @@ class Invoice < ApplicationRecord
     select("invoice_items.unit_price, invoice_items.quantity").
     sum("invoice_items.unit_price * invoice_items.quantity")
   end
+
+  def self.pending_revenue
+    Invoice.joins(:invoice_items, :transactions).
+    where("invoices.status != 'shipped' AND transactions.result = 'success'").
+    select("invoice_items.unit_price, invoice_items.quantity").
+    sum("invoice_items.unit_price * invoice_items.quantity")
+  end
 end
