@@ -8,9 +8,9 @@ class Invoice < ApplicationRecord
   def self.total_revenue_within_range(start_date,end_date)
     invoices = Invoice.all
 
-    invoices = invoices.where("invoices.created_at > ?",start_date) if start_date
+    invoices = invoices.where("invoices.created_at > ?",start_date.to_date) if start_date
 
-    invoices = invoices.where("invoices.created_at < ?",end_date) if end_date
+    invoices = invoices.where("invoices.created_at < ?",end_date.to_date) if end_date
 
     invoices.joins(:invoice_items, :transactions).
     where("invoices.status = 'shipped' AND transactions.result = 'success'").
