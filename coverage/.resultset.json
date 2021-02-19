@@ -266,10 +266,23 @@
           null
         ]
       },
-      "/Users/graymyers/turing/3module/projects/rails-engine/app/models/customer.rb": {
+      "/Users/graymyers/turing/3module/projects/rails-engine/app/models/merchant.rb": {
         "lines": [
           1,
           1,
+          1,
+          null,
+          1,
+          2,
+          null,
+          null,
+          1,
+          0,
+          null,
+          null,
+          null,
+          null,
+          null,
           null
         ]
       },
@@ -282,35 +295,15 @@
           null,
           null,
           1,
-          9,
-          9,
-          9,
+          4,
+          4,
+          4,
           null,
           null,
           1,
           null,
           1,
-          9,
-          null,
-          null
-        ]
-      },
-      "/Users/graymyers/turing/3module/projects/rails-engine/app/models/invoice_item.rb": {
-        "lines": [
-          1,
-          1,
-          1,
-          null
-        ]
-      },
-      "/Users/graymyers/turing/3module/projects/rails-engine/app/models/invoice.rb": {
-        "lines": [
-          1,
-          1,
-          1,
-          1,
-          1,
-          1,
+          4,
           null,
           null
         ]
@@ -323,49 +316,22 @@
           1,
           null,
           1,
-          9,
+          2,
           null,
-          9,
-          5,
-          null,
-          null,
-          9,
-          3,
-          null,
-          null,
-          9,
-          3,
-          null,
-          null,
-          9,
-          null,
-          null
-        ]
-      },
-      "/Users/graymyers/turing/3module/projects/rails-engine/app/models/merchant.rb": {
-        "lines": [
-          1,
-          1,
-          1,
-          null,
-          1,
-          5,
-          null,
-          null,
-          1,
+          2,
           2,
           null,
           null,
-          null,
-          null,
-          null,
-          null
-        ]
-      },
-      "/Users/graymyers/turing/3module/projects/rails-engine/app/models/transaction.rb": {
-        "lines": [
+          2,
           1,
+          null,
+          null,
+          2,
           1,
+          null,
+          null,
+          2,
+          null,
           null
         ]
       },
@@ -486,6 +452,6 @@
         ]
       }
     },
-    "timestamp": 1613693369
+    "timestamp": 1613693426
   }
 }
