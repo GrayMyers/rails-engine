@@ -1,6 +1,6 @@
 require 'rails_helper'
-RSpec.describe 'Business Intelligence', type: :request do
-  describe "getting a @merchant's total revenue" do
+describe 'Business Intelligence', type: :request do
+  describe "getting a merchant's total revenue" do
     before :each do
       @merchant = Merchant.create(name: "me")
       @merchant_2 = Merchant.create(name: "not me")
