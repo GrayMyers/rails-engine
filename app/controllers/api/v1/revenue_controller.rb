@@ -51,6 +51,16 @@ class Api::V1::RevenueController < ApplicationController
     end
   end
 
+  def items_by_revenue
+    params[:quantity] = params[:quantity].to_i if params[:quantity]
+    if params[:quantity] and params[:quantity] < 1
+      render json: {:error => "invalid data", status: 400}.to_json, status: 400
+    else
+      items = Item.by_revenue_descending(params[:quantity])
+      render json: ItemRevenueSerializer.new(items)
+    end
+  end
+
   private
 
   def is_blank?(string)

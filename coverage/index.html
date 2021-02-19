@@ -14,7 +14,7 @@
       <img src="./assets/0.12.3/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" class="hide">
-      <div class="timestamp">Generated <abbr class="timeago" title="2021-02-18T22:19:00-07:00">2021-02-18T22:19:00-07:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2021-02-18T22:25:04-07:00">2021-02-18T22:25:04-07:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
@@ -43,8 +43,8 @@
   </div>
 
   <div class="t-line-summary">
-    <b>178</b> relevant lines,
-    <span class="green"><b>178</b> lines covered</span> and
+    <b>180</b> relevant lines,
+    <span class="green"><b>180</b> lines covered</span> and
     <span class="red"><b>0</b> lines missed. </span>
     (<span class="green">
   100.0%
@@ -183,11 +183,11 @@
           <tr class="t-file">
             <td class="strong t-file__name"><a href="#330b8febf7bfbdde49b40e3885b4e123be2c045c" class="src_link" title="app/models/item.rb">app/models/item.rb</a></td>
             <td class="green strong cell--number t-file__coverage">100.00 %</td>
-            <td class="cell--number">17</td>
-            <td class="cell--number">10</td>
-            <td class="cell--number">10</td>
+            <td class="cell--number">27</td>
+            <td class="cell--number">12</td>
+            <td class="cell--number">12</td>
             <td class="cell--number">0</td>
-            <td class="cell--number">5.00</td>
+            <td class="cell--number">4.42</td>
             
           </tr>
         
@@ -2908,8 +2908,8 @@
     
 
     <div class="t-line-summary">
-      <b>10</b> relevant lines.
-      <span class="green"><b>10</b> lines covered</span> and
+      <b>12</b> relevant lines.
+      <span class="green"><b>12</b> lines covered</span> and
       <span class="red"><b>0</b> lines missed.</span>
     </div>
 
@@ -3098,6 +3098,116 @@
       
         <div>
           <li class="never" data-hits="" data-linenumber="17">
+            
+            
+
+            
+
+            <code class="ruby"></code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="18">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">  def self.by_revenue_descending(limit = 10)</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="2" data-linenumber="19">
+            <span class="hits">2</span>
+            
+
+            
+
+            <code class="ruby">    Item</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="20">
+            
+            
+
+            
+
+            <code class="ruby">    .joins(invoice_items: {invoice: :transactions})</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="21">
+            
+            
+
+            
+
+            <code class="ruby">    .where(&quot;invoices.status=&#39;shipped&#39; AND transactions.result=&#39;success&#39;&quot;)</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="22">
+            
+            
+
+            
+
+            <code class="ruby">    .group(&quot;items.id&quot;)</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="23">
+            
+            
+
+            
+
+            <code class="ruby">    .select(&quot;items.*, SUM(invoice_items.quantity * invoice_items.unit_price) AS revenue&quot;)</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="24">
+            
+            
+
+            
+
+            <code class="ruby">    .order(&quot;revenue DESC&quot;)</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="25">
+            
+            
+
+            
+
+            <code class="ruby">    .limit(limit)</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="26">
+            
+            
+
+            
+
+            <code class="ruby">  end</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="27">
             
             
 
