@@ -27,7 +27,7 @@ describe "Find one merchant search", type: :request do
       get api_v1_merchants_find_path(name: name)
       expect(response.status).to eq(200)
       json = JSON.parse(response.body, symbolize_names: true)
-      expect(json[:data]).to eq(nil)
+      expect(json[:data]).to eq({})
       # expect that every attribute we want up above shows up in our output
     end
   end

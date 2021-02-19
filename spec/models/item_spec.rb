@@ -36,7 +36,7 @@ describe Item, type: :model do
       InvoiceItem.create(item: not_my_item, invoice: not_my_invoice, quantity: 5, unit_price: 100)
       Transaction.create(invoice: not_my_invoice, result: "success")
 
-      expect(Item.by_revenue_descending).to eq([not_my_item, item])
+      expect(Item.by_revenue_descending(5)).to eq([not_my_item, item])
       expect(Item.by_revenue_descending(1)).to eq([not_my_item])
 
     end
@@ -47,6 +47,9 @@ describe Item, type: :model do
 
       items_all_low_min = Item.find_all(nil,0,nil)
       expect(items_all_high_max).to eq(@items)
+
+      no_items_edge_case = Item.find_all("",nil,nil) #I do not know why this edge case exists but postman asked for it
+      expect(no_items_edge_case).to eq([])
 
       items_all_ambiguous_name = Item.find_all("item",nil,nil)
       expect(items_all_ambiguous_name).to eq(@items)
