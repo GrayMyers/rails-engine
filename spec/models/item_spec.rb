@@ -48,6 +48,9 @@ describe Item, type: :model do
       items_all_low_min = Item.find_all(nil,0,nil)
       expect(items_all_high_max).to eq(@items)
 
+      no_items_edge_case = Item.find_all("",nil,nil) #I do not know why this edge case exists but postman asked for it
+      expect(no_items_edge_case).to eq([])
+
       items_all_ambiguous_name = Item.find_all("item",nil,nil)
       expect(items_all_ambiguous_name).to eq(@items)
 

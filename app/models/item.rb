@@ -17,7 +17,7 @@ class Item < ApplicationRecord
 
     result = result.where("unit_price <= #{max}") if max
 
-    result
+    search_term == "" ? [] : result
   end
 
   def self.by_revenue_descending(limit)
