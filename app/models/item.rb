@@ -6,7 +6,12 @@ class Item < ApplicationRecord
   def self.find_all(search_term,min,max)
     result = Item.all
 
-    result = result.where("name LIKE ?","%#{search_term}%") if search_term
+    if search_term
+      if search_term == ""
+        return []
+      end
+      result = result.where("name LIKE ?","%#{search_term}%")
+    end
 
     result = result.where("unit_price >= #{min}") if min
 
