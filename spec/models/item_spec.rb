@@ -13,6 +13,34 @@ describe Item, type: :model do
       @items =  (0..50).map{ |i| Item.create(name: "item #{i}", unit_price: i, merchant: @merchant) }
     end
 
+    it "by_revenue_descending" do
+      merchant = Merchant.create(name: "me")
+      merchant_2 = Merchant.create(name: "not me")
+
+      item = Item.create(name: "item sold", description: "item has been sold and will count towards revenue", unit_price: 2431341, merchant: merchant)
+      item_not_sold = Item.create(name: "item not sold", description: "nobody bought it because its so expensive, this won't count towards revenue!", unit_price: 100007807807807807807070, merchant: merchant)
+      not_my_item = Item.create(name: "item sold", description: "this got sold but isn't mine so it wont count towards revenue", unit_price: 12312, merchant: merchant_2)
+
+      customer = Customer.create(first_name: "John", last_name: "Smith")
+
+      my_invoice = Invoice.create(customer: customer, merchant: merchant, status: "shipped")
+      InvoiceItem.create(item: item, invoice: my_invoice, quantity: 5, unit_price: 10)
+      Transaction.create(invoice: my_invoice, result: "success")
+
+      my_incomplete_invoice = Invoice.create(customer: customer, merchant: merchant, status: "shipped")
+      InvoiceItem.create(item: item_not_sold, invoice: my_incomplete_invoice, quantity: 1, unit_price: 100007807807807807807070)
+      Transaction.create(invoice: my_incomplete_invoice, result: "failed") #not good
+
+
+      not_my_invoice = Invoice.create(customer: customer, merchant: merchant_2, status: "shipped")
+      InvoiceItem.create(item: not_my_item, invoice: not_my_invoice, quantity: 5, unit_price: 100)
+      Transaction.create(invoice: not_my_invoice, result: "success")
+
+      expect(Item.by_revenue_descending).to eq([not_my_item, item])
+      expect(Item.by_revenue_descending(1)).to eq([not_my_item])
+
+    end
+
     it "find_all" do
       items_all_high_max = Item.find_all(nil,nil,100000000000)
       expect(items_all_high_max).to eq(@items)
