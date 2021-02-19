@@ -366,8 +366,8 @@
           null,
           null,
           1,
-          0,
-          0,
+          4,
+          4,
           null,
           null,
           null,
@@ -562,12 +562,12 @@
           null,
           null,
           1,
-          0,
-          0,
-          0,
+          3,
+          3,
+          1,
           null,
-          0,
-          0,
+          2,
+          2,
           null,
           null,
           null,
@@ -576,6 +576,14 @@
           1,
           5,
           null,
+          null
+        ]
+      },
+      "/Users/graymyers/turing/3module/projects/rails-engine/app/serializers/item_revenue_serializer.rb": {
+        "lines": [
+          1,
+          1,
+          1,
           null
         ]
       },
@@ -599,6 +607,6 @@
         ]
       }
     },
-    "timestamp": 1613715610
+    "timestamp": 1613715945
   }
 }

@@ -36,7 +36,7 @@ describe Item, type: :model do
       InvoiceItem.create(item: not_my_item, invoice: not_my_invoice, quantity: 5, unit_price: 100)
       Transaction.create(invoice: not_my_invoice, result: "success")
 
-      expect(Item.by_revenue_descending).to eq([not_my_item, item])
+      expect(Item.by_revenue_descending(5)).to eq([not_my_item, item])
       expect(Item.by_revenue_descending(1)).to eq([not_my_item])
 
     end
